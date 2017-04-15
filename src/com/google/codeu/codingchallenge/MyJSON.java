@@ -15,40 +15,62 @@
 package com.google.codeu.codingchallenge;
 
 import java.util.Collection;
+import java.util.Enumeration;
+import java.util.Hashtable;
 
 final class MyJSON implements JSON {
 
+  //holds can hold either a pairing of strings or a string and a JSON object
+  Hashtable<String, Object> pairings = new Hashtable<>();
+
   @Override
   public JSON getObject(String name) {
-    // TODO: implement this
+    if(pairings.containsKey(name) && pairings.get(name) instanceof JSON)
+      return (JSON)pairings.get(name);
     return null;
   }
 
   @Override
   public JSON setObject(String name, JSON value) {
-    // TODO: implement this
+    pairings.put(name,value);
     return this;
   }
 
   @Override
   public String getString(String name) {
-    // TODO: implement this
+    if(pairings.containsKey(name) && pairings.get(name) instanceof String)
+      return (String)pairings.get(name);
     return null;
   }
 
   @Override
   public JSON setString(String name, String value) {
-    // TODO: implement this
+    pairings.put(name,value);
     return this;
   }
 
   @Override
   public void getObjects(Collection<String> names) {
-    // TODO: implement this
+    String key;
+    Enumeration e = pairings.keys();
+    while(e.hasMoreElements()) {
+      key = (String)e.nextElement();
+      if(pairings.get(key) instanceof JSON)
+        names.add(key);
+
+    }
+
   }
 
   @Override
   public void getStrings(Collection<String> names) {
-    // TODO: implement this
+    String key;
+    Enumeration e = pairings.keys();
+    while(e.hasMoreElements()) {
+      key = (String)e.nextElement();
+      if(pairings.get(key) instanceof String)
+        names.add(key);
+
+    }
   }
 }

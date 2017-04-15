@@ -15,12 +15,14 @@
 package com.google.codeu.codingchallenge;
 
 import java.io.IOException;
+import java.util.Hashtable;
 
 final class MyJSONParser implements JSONParser {
 
+  static Hashtable<String,JSON> objects = new Hashtable<>();
+
   @Override
   public JSON parse(String in) throws IOException {
-    // TODO: implement this
     return new MyJSON();
   }
 }
